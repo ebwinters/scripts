@@ -1,2 +1,2 @@
 # scripts
-Scripts I wrote in python while I was bored
+Scripts I wrote in python. Just experimenting
