@@ -1,4 +1,6 @@
 
+from random import randint, shuffle
+
 SUITS = ['C', 'S', 'D', 'H']
 RANKS = ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K')
 VALUES = {
@@ -27,7 +29,6 @@ class Card:
 	def get_rank(self):
 		return self.value
 
-
 class Deck:
 	def __init__(self):
 		self.deck = []
@@ -38,19 +39,15 @@ class Deck:
 			for rank in RANKS:
 				self.deck.append(Card(rank, suit))
 		while counter < len(self.deck):
-			print(self.deck[counter].get_suit(), self.deck[counter].get_rank())
 			counter += 1
 
-			
-
+	def shuffle(self, card_list):
+		shuffle(card_list)
+		return( card_list)
+	def deal_card(self, card_list):
+		dealt = card_list.pop()
+		return(dealt.value, dealt.suit)
 		
-
-
-
-
-	def shuffle(self):
-		pass
-	def deal_card(self):
-		pass
-
-Deck()
+deck = Deck()
+deck.shuffle(deck.deck)
+deck.deal_card(deck.deck)
