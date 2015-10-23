@@ -53,12 +53,14 @@ class Deck:
 class Player:
 	def __init__(self):
 		self.number = 0
+		self.identity = "p"
 	def get_number(self):
 		return self.number
 class Dealer:
 	def __init__(self):
 		self.number = 0
 		self.numbershowing = 0
+		self.identity = "d"
 	def get_number(self):
 		return self.number + self.numbershowing
 	def get_number_showing(self):
@@ -69,6 +71,8 @@ class Game:
 	deck.shuffle()
 	player = Player()
 	dealer = Dealer()
+	playerturn = True
+	dealerturn = False
 	player_starting_cards = (deck.deal_card(), deck.deal_card())
 	dealer_starting_cards = (deck.deal_card(), deck.deal_card())
 	print( player_starting_cards)
@@ -93,7 +97,11 @@ class Game:
 	def hit(self, player):
 		pass
 	def stay(self, player):
-		pass
+		if player.identity == 'p':
+			playerturn = False
+			dealerturn = True
+		else:
+			dealerturn = False
 
 	
 	#create dealer and player
