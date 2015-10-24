@@ -1,6 +1,7 @@
 
 from random import randint, shuffle
 import sys
+import os
 
 SUITS = ['C', 'S', 'D', 'H']
 RANKS = ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K')
@@ -63,6 +64,8 @@ class Player:
 			exit()
 		holder_list = (deck.deal_card(),)
 		self.number += VALUES[holder_list[0][0]]
+		print("The card you have been dealt is: ")
+		print(holder_list[0])
 		if self.number > 21:
 			print("BUST")
 			exit()
@@ -77,8 +80,24 @@ class Dealer:
 		return self.number + self.numbershowing
 	def get_number_showing(self):
 		return self.numbershowing
+	def hit(self, deck):
+		if self.number > 21:
+			print("BUST")
+			exit()
+		holder_list = (deck.deal_card(),)
+		self.number += VALUES[holder_list[0][0]]
+		print("The card the dealer was dealt is: ")
+		print(holder_list[0])
+		if self.number > 21:
+			print("DEALER BUST, YOU WIN")
+			exit()
+		print("The dealer is currently at a total of currently at a todal of " + str(self.number))
 
 class Game:
+	os.system('clear')
+	print("=*="*20)
+	print("Welcome to Blackjack")
+	print("=*="*20)
 	deck = Deck()
 	deck.shuffle()
 	player = Player()
@@ -93,6 +112,7 @@ class Game:
 		print("Here are your cards: ")
 		print(player_starting_cards)
 		player.number += VALUES[player_starting_cards[0][0]] + VALUES[player_starting_cards[1][0]]
+		print("You are currently at a todal of " + str(player.number))
 	if dealer_starting_cards[0][0] in VALUES:
 		dealer.numbershowing = dealer_starting_cards[0]
 		dealer.number += VALUES[dealer_starting_cards[0][0]]
@@ -100,7 +120,6 @@ class Game:
 		print(dealer.numbershowing)
 	if dealer_starting_cards[1][0] in VALUES:
 		dealer.number += VALUES[dealer_starting_cards[1][0]]
-	
 	while playerturn == True:
 		hit_or_stay = input("Would you like to hit or stay? [h/s]").lower()
 		if player.number <= 21:
@@ -113,15 +132,30 @@ class Game:
 			print("BUST")
 			exit()
 	while dealerturn == True:
-		pass
+		print("\n")
+		print("The dealer has flipped the card facing down, revealing the: ")
+		print(dealer_starting_cards[1])
+		print("The dealers total is: " + str(dealer.number))
+		while dealerturn == True:	
+			stay_list = [17, 18, 19, 20, 21]
+			if dealer.number <= 16:
+				print("Dealer has to hit")
+				dealer.hit(deck)
+			if dealer.number in stay_list:
+				dealerturn = False
+				print("Dealer stays")
+			elif dealer.number > 21:
+				print("DEALER BUST, YOU WIN")
+				exit()
+		if dealer.number >= player.number:
+			print("Dealer wins")
+			exit()
+		else:
+			print("You win")
 
 
-
-
-
-	
-	
-	#create dealer and player
-	#deal player, dealer
-	#ask for hit or not 
 Game()
+# aces 1 or 11
+# betting with chips
+# 21 dealt
+# gui
