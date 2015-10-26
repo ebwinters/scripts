@@ -69,14 +69,21 @@ class Player:
 		# 		self.number += VALUES[holder_list[0][0]]
 		# 	else:
 		# 		self.number += 11
-
-		self.number += VALUES[holder_list[0][0]]
 		print("The card you have been dealt is: ")
+		if holder_list[0][0] == 'A':
+			val = str(input("Do you want the ace to be worth 1 or 11? "))
+			if val == '1':
+				self.number += 1
+			if val == '11':
+				self.number += 11
+		else:
+			self.number += VALUES[holder_list[0][0]]
+
 		print(holder_list[0])
 		if self.number > 21:
 			print("BUST")
 			exit()
-		print("You are currently at a todal of " + str(self.number))
+		print("You are currently at a total of " + str(self.number))
 
 class Dealer:
 	def __init__(self):
@@ -125,7 +132,7 @@ class Game:
 			if val == '11':
 				player.number += 11
 			player.number += VALUES[player_starting_cards[1][0]]
-		if player_starting_cards[1][0] == 'A':
+		elif player_starting_cards[1][0] == 'A':
 			val = str(input("Do you want the ace to be worth 1 or 11? "))
 			if val == '1':
 				player.number += 1
@@ -135,7 +142,7 @@ class Game:
 
 		else:
 			player.number += VALUES[player_starting_cards[0][0]] + VALUES[player_starting_cards[1][0]]
-		print("You are currently at a todal of " + str(player.number))
+		print("You are currently at a total of " + str(player.number))
 	if dealer_starting_cards[0][0] in VALUES:
 		dealer.numbershowing = dealer_starting_cards[0]
 		dealer.number += VALUES[dealer_starting_cards[0][0]]
@@ -178,7 +185,6 @@ class Game:
 
 
 Game()
-# aces 1 or 11
 # betting with chips
 # 21 dealt
 # gui
