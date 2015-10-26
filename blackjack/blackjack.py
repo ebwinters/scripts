@@ -63,6 +63,13 @@ class Player:
 			print("BUST")
 			exit()
 		holder_list = (deck.deal_card(),)
+		# if holder_list[0][0] == 'A':
+		# 	oneoreleven = str(input(('Do you want the ace to be played as a value of 1 or 11 [1/11]')))
+		# 	if oneoreleven == '1':
+		# 		self.number += VALUES[holder_list[0][0]]
+		# 	else:
+		# 		self.number += 11
+
 		self.number += VALUES[holder_list[0][0]]
 		print("The card you have been dealt is: ")
 		print(holder_list[0])
@@ -111,7 +118,23 @@ class Game:
 	if player_starting_cards[0][0] and player_starting_cards[1][0] in VALUES:
 		print("Here are your cards: ")
 		print(player_starting_cards)
-		player.number += VALUES[player_starting_cards[0][0]] + VALUES[player_starting_cards[1][0]]
+		if player_starting_cards[0][0] == 'A':
+			val = str(input("Do you want the ace to be worth 1 or 11? "))
+			if val == '1':
+				player.number += 1
+			if val == '11':
+				player.number += 11
+			player.number += VALUES[player_starting_cards[1][0]]
+		if player_starting_cards[1][0] == 'A':
+			val = str(input("Do you want the ace to be worth 1 or 11? "))
+			if val == '1':
+				player.number += 1
+			if val == '11':
+				player.number += 11
+			player.number += VALUES[player_starting_cards[0][0]]
+
+		else:
+			player.number += VALUES[player_starting_cards[0][0]] + VALUES[player_starting_cards[1][0]]
 		print("You are currently at a todal of " + str(player.number))
 	if dealer_starting_cards[0][0] in VALUES:
 		dealer.numbershowing = dealer_starting_cards[0]
