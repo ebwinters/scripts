@@ -58,16 +58,14 @@ class Player:
 		self.identity = "p"
 	def get_number(self):
 		return self.number
-	def hit(self, deck, turn):
-		if self.number > 21:
-			print("BUST")
+	def hit(self, deck):
 		holder_list = (deck.deal_card(),)
-		# if holder_list[0][0] == 'A':
-		# 	oneoreleven = str(input(('Do you want the ace to be played as a value of 1 or 11 [1/11]')))
-		# 	if oneoreleven == '1':
-		# 		self.number += VALUES[holder_list[0][0]]
-		# 	else:
-		# 		self.number += 11
+			# if holder_list[0][0] == 'A':
+			# 	oneoreleven = str(input(('Do you want the ace to be played as a value of 1 or 11 [1/11]')))
+			# 	if oneoreleven == '1':
+			# 		self.number += VALUES[holder_list[0][0]]
+			# 	else:
+			# 		self.number += 11
 		print("The card you have been dealt is: ")
 		print(holder_list[0])
 		if holder_list[0][0] == 'A':
@@ -76,15 +74,17 @@ class Player:
 				self.number += 1
 			if val == '11':
 				self.number += 11
-		else:
+		elif holder_list[0][0] != 'A':
 			self.number += VALUES[holder_list[0][0]]
-
+			if self.number > 21:
+				print("BUST")
+				
 		
-		if self.number > 21:
-			print("BUST")
-			turn = False
 
 		print("You are currently at a total of " + str(self.number))
+
+			
+		
 
 class Dealer:
 	def __init__(self):
@@ -162,13 +162,14 @@ class Game:
 				hit_or_stay = input("Would you like to hit or stay? [h/s]").lower()
 				if player.number <= 21:
 					if hit_or_stay == 'h':
-						player.hit(deck, playerturn)
+						player.hit(deck)
 					if hit_or_stay == 's':
 						playerturn = False
 						dealerturn = True
-				elif player.number > 21:
-					print("BUST")
-					break
+			elif player.number > 21:
+				print("BUST")
+				playerturn = False
+				dealerturn = True
 		while dealerturn == True:
 			print("\n")
 			print("The dealer has flipped the card facing down, revealing the: ")
@@ -190,7 +191,7 @@ class Game:
 					dealerturn = False
 					playerturn = True
 					print('\n\n')
-			if dealer.number >= player.number:
+			if dealer.number > player.number and dealer.number < 22 or player.number > 21:
 				print("Dealer wins")
 				chips -= int(chipval)
 				dealerturn = False
@@ -201,7 +202,7 @@ class Game:
 				dealerturn = False
 				playerturn = True
 				print('\n\n')
-			else:
+			elif player.number > dealer.number:
 				print("You win")
 				chips += int(chipval)
 				dealerturn = False
