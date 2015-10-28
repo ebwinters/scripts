@@ -219,5 +219,4 @@ class Game:
 	print("Game over")
 
 Game()
-# 21 dealt
 # gui
