@@ -113,6 +113,7 @@ class Game:
 	print("You'll start with 50 chips")
 	print("=*="*20)
 	chips = 50
+	blackjack = False
 	while chips > 0:
 		print("You currently have " + str(chips) + " chips")
 		deck = Deck()
@@ -139,6 +140,9 @@ class Game:
 				if val == '11':
 					player.number += 11
 				player.number += VALUES[player_starting_cards[1][0]]
+				if player.number == 21:
+					print("Blackjack")
+					blackjack = True
 			elif player_starting_cards[1][0] == 'A':
 				val = str(input("Do you want the ace to be worth 1 or 11? "))
 				if val == '1':
@@ -146,6 +150,10 @@ class Game:
 				if val == '11':
 					player.number += 11
 				player.number += VALUES[player_starting_cards[0][0]]
+				if player.number == 21:
+					print("Blackjack")
+					blackjack = True
+
 
 			else:
 				player.number += VALUES[player_starting_cards[0][0]] + VALUES[player_starting_cards[1][0]]
@@ -202,7 +210,7 @@ class Game:
 				dealerturn = False
 				playerturn = True
 				print('\n\n')
-			elif player.number > dealer.number:
+			elif player.number > dealer.number or blackjack:
 				print("You win")
 				chips += int(chipval)
 				dealerturn = False
@@ -211,6 +219,5 @@ class Game:
 	print("Game over")
 
 Game()
-# betting with chips
 # 21 dealt
 # gui
