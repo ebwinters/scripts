@@ -11,7 +11,7 @@ data = soup.find_all("div", {"class": "ms-vb itx"})
 
 
 teacher_list = []
-
+teacher_email = ""
 for item in data:
 	# listing = item.find_all('a')
 	# print(item.get("href"))
@@ -21,6 +21,17 @@ for item in data:
 	teacher_list.append(new)
 
 teacher = input("What is the teacher's last name?: ")
+
+for link in soup.find_all('a'):
+	if teacher in str(link.get('href')):
+		teacher_email = link.get("href")
+		col = teacher_email.find(":") + 1
+		teacher_email = teacher_email[col:len(teacher_email)]
+		print(link.get("href"))
+		print(teacher_email)
+	
+	# mail_list.append(link.get('@dist113'))
+
 
 if teacher in teacher_list:
 	print("Y")
