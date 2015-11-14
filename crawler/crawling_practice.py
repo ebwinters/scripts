@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
+import mail
+
 
 
 url = "http://hphs.dist113.org/Lists/EmployeeDirectory7/AllItems.aspx"
@@ -20,7 +22,13 @@ for item in data:
 	new = instance[0:num]
 	teacher_list.append(new)
 
+
 teacher = input("What is the teacher's last name?: ")
+user_email = input("What is your email?: ")
+user_pass = input("What is your password?: ")
+message = input("What is the message you wish to send?: ")
+
+
 
 for link in soup.find_all('a'):
 	if teacher in str(link.get('href')):
@@ -39,3 +47,7 @@ else:
 	print("N")
 
 
+
+
+mail.send_email(user_email, user_pass, teacher_email, message)
+print("Done")
