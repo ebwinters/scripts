@@ -31,6 +31,8 @@ finaladdition = int(number2)*int(mult)
 print(finaladdition)
 mult2 = int(mult)-1
 final += str(str(finaladdition) + 'x^' + str(mult2))
+del l[0:num+1]
+print(l)
 print(final)
 	
 
